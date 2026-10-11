@@ -1,20 +1,28 @@
-NOTICE for sim/ (the DBC curve port)
+NOTICE for the DBC code ports in sim/
 
-The DBC curve port in this directory is based on MeteoraAg/dynamic-bonding-curve
-(https://github.com/MeteoraAg/dynamic-bonding-curve). dbc_curve.py is an integer
-port of that program's bonding-curve swap and fee math (curve.rs,
-state/virtual_pool.rs and state/config.rs). The other files in sim/ are built
-on dbc_curve.py and are covered by this notice too.
+This notice covers exactly two files. Both port code from
+MeteoraAg/dynamic-bonding-curve (https://github.com/MeteoraAg/dynamic-bonding-curve):
+
+- sim/dbc_curve.py: an integer port of that program's bonding-curve swap and
+  fee math (curve.rs, state/virtual_pool.rs and state/config.rs).
+- sim/curve_factory.py: its total_base_on_curve() repeats DBC's
+  get_base_token_for_swap, which sums the base amount of each curve segment
+  rounded up.
 
 Required Notice: All underlying software code is subject to the licence set out at https://github.com/MeteoraAg/dynamic-bonding-curve
 
 That licence is the Meteora Non-commercial Licence. It allows copies of the
 DBC code and works based on it for noncommercial purposes only.
 
-sim/ is therefore excluded from the MIT grant in the repository's root LICENSE.
-It is research code: it was written to check Trucee's solvency claims against
-DBC's rounding, and it is for research use only. Do not use it, or anything
-derived from it, for commercial purposes.
+The two files named above are therefore excluded from the MIT grant in the
+repository's root LICENSE. They are research code: they were written to check
+Trucee's solvency claims against DBC's rounding, and they are for research use
+only. Do not use them, or anything derived from them, for commercial purposes.
+
+Every sim/ file not named above (the router model zero_pvp.py, the fuzz and
+sniper scripts, the replay and export tools, and the tests) is Trucee's own
+work under the MIT licence in the root LICENSE. Those files only import and
+call functions from the two files above; they copy none of DBC's code.
 
 The rest of the repository is Trucee code under the MIT licence in the root
 LICENSE. Trucee's programs call the deployed DBC program by CPI, which copies
