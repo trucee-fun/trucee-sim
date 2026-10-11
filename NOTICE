@@ -1,0 +1,22 @@
+NOTICE for sim/ (the DBC curve port)
+
+The DBC curve port in this directory is based on MeteoraAg/dynamic-bonding-curve
+(https://github.com/MeteoraAg/dynamic-bonding-curve). dbc_curve.py is an integer
+port of that program's bonding-curve swap and fee math (curve.rs,
+state/virtual_pool.rs and state/config.rs). The other files in sim/ are built
+on dbc_curve.py and are covered by this notice too.
+
+Required Notice: All underlying software code is subject to the licence set out at https://github.com/MeteoraAg/dynamic-bonding-curve
+
+That licence is the Meteora Non-commercial Licence. It allows copies of the
+DBC code and works based on it for noncommercial purposes only.
+
+sim/ is therefore excluded from the MIT grant in the repository's root LICENSE.
+It is research code: it was written to check Trucee's solvency claims against
+DBC's rounding, and it is for research use only. Do not use it, or anything
+derived from it, for commercial purposes.
+
+The rest of the repository is Trucee code under the MIT licence in the root
+LICENSE. Trucee's programs call the deployed DBC program by CPI, which copies
+none of its code. The DBC program binaries are not committed:
+litesvm-diff/scripts/fetch-dbc.sh dumps them from chain for local tests.
