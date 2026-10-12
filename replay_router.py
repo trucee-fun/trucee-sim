@@ -3,7 +3,7 @@
 Usage: python3 replay_router.py E2E.json HARNESS_RESULTS.json
 
 Compares, per op: tokens received on buy, refund paid on sell, and the trader's
-recorded basis afterwards. Also compares the final router buffer.
+recorded basis afterwards. Also reports the modeled router buffer.
 """
 
 import json

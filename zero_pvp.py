@@ -1,16 +1,18 @@
 """Zero-PvP router: pre-graduation, every exit is refunded at cost basis.
 
 Model of the on-chain design:
-  - A transfer hook forces every pre-graduation buy/sell through this router,
-    and buys land in per-user escrow (so cost basis is exact and complete).
-  - buy: user pays `amount_in`; the net quote that entered the curve is
-    recorded as the user's cost basis (the buy fee is the user's cost).
+  - A transfer hook forces buys and exits through the router before graduation;
+    tokens land in the owner's associated token account and basis is recorded
+    in a separate position account. This model tracks the accounting only.
+  - buy: user pays `amount_in`; the net quote that entered the curve minus
+    the rounding reserve is recorded as basis (the buy fee is the user's cost).
   - exit: router sells the user's tokens into the curve and receives
     `net = gross - sell_fee`; the user is paid `refund_for(basis_part)`.
     `net - refund` goes to (or comes from) the router buffer.
 
-Refund rule: basis - fee_at_cost - haircut (user pays the fee as if selling at cost;
-haircut absorbs DBC's pool-favoured rounding dust).
+Refund rule before graduation: basis - fee_at_cost - haircut (user pays the fee
+as if selling at cost; the on-program 2-lamport haircut absorbs DBC's
+pool-favoured rounding dust). This is the floor until graduation.
 
 Claim under test: buffer >= 0 at every step, for every curve and ordering.
 Exact identity: sum(gross - basis) == sum(remaining basis) - quote_reserve.
